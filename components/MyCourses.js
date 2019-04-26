@@ -33,7 +33,7 @@ export default class MyCourses extends Component {
           return <Login />;
         }
         return (
-          <MyCoursesContent/>
+          <MyCoursesContent navigation={ this.props.navigation }/>
         );
     }
   }

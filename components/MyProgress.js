@@ -36,7 +36,7 @@ export default class MyProgress extends Component {
           return <Login />;
         }
         return (
-          <MyProgressContent/>
+          <MyProgressContent navigation={ this.props.navigation } />
         );
     }
   }
