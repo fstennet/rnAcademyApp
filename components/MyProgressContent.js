@@ -4,6 +4,8 @@ import { View, Text, ScrollView , TouchableOpacity, Image, ImageBackground, Styl
 import { Icon } from 'react-native-elements'
 import { Grid, LineChart, XAxis, YAxis } from 'react-native-svg-charts'
 
+import firebase from 'react-native-firebase';
+
 const finishedCourses = [
 
   {
@@ -31,6 +33,13 @@ const finishedCourses = [
 
 
 export default class MyProgressContent extends Component {
+
+  componentDidMount() {
+
+    firebase.database().ref('users/').once(this.props.user.uid, function (snapshot) {
+      console.warn(snapshot.val())
+  });
+  }
 
   renderRow(item, index) {
     return (

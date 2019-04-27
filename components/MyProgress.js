@@ -36,7 +36,9 @@ export default class MyProgress extends Component {
           return <Login />;
         }
         return (
-          <MyProgressContent navigation={ this.props.navigation } />
+          <MyProgressContent 
+            navigation={ this.props.navigation }
+            user={ this.state.user }/>
         );
     }
   }
