@@ -30,8 +30,6 @@ build/
 local.properties
 *.iml
 
-google-services.json
-GoogleService-Info.plist
 
 # ios/Pods,
 ios/Pods/

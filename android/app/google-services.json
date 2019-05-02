@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "185994506355",
+    "firebase_url": "https://sykes-training.firebaseio.com",
+    "project_id": "sykes-training",
+    "storage_bucket": "sykes-training.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:185994506355:android:44c3afaa46548779",
+        "android_client_info": {
+          "package_name": "com.academyapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "185994506355-coitbu9qlg3v862tc4aofd293j4ror87.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCktu2p_lEvfPq7ZgPdRLzpG4ErdyqPVY4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "185994506355-coitbu9qlg3v862tc4aofd293j4ror87.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "185994506355-lqq4e9oagu4mmtspvfto35iho5nn2hke.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.AcademyApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
