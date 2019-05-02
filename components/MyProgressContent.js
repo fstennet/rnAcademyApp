@@ -1,44 +1,66 @@
 
 import React, { Component } from 'react';
-import { View, Text, ScrollView , TouchableOpacity, Image, ImageBackground, StyleSheet} from 'react-native';
+import { View, Text, ScrollView , TouchableOpacity, Image, ImageBackground, StyleSheet, ActivityIndicator } from 'react-native';
 import { Icon } from 'react-native-elements'
 import { Grid, LineChart, XAxis, YAxis } from 'react-native-svg-charts'
 
 import firebase from 'react-native-firebase';
 
-const finishedCourses = [
-
-  {
-    name: 'PC Building',
-    date: 'Feb 2015',
-    grade: '90',
-  },
-  {
-    name: 'CCNA R&S I',
-    date: 'Dec 2015',
-    grade: '80',
-  },
-  {
-    name: 'CCNE R&S II',
-    date: 'Mar 2016',
-    grade: '79',
-  },
-  {
-    name: 'Python II',
-    date: 'Feb 2017',
-    grade: '100',
-  },
-]
-
 
 
 export default class MyProgressContent extends Component {
 
-  componentDidMount() {
+  constructor() {
+    super();
+    this.state = {
+      userInfo: {
+          name: '',
+          gender: '',
+          email: '',
+          role: '',
+          age: '',
+          address: '',
+          company: '',
+          badge: '',
+          nationalID: '',
+          phone: '',
+          nationality: '',
+          sykesAccount: '',
+          courses: [],
+          certification:[]
+        },
+        data: [],
+        courses: [],
+        finishedCourses: [],
+        activityIndicator: false
+    };
+  }
 
-    firebase.database().ref('users/').once(this.props.user.uid, function (snapshot) {
-      console.warn(snapshot.val())
+  componentDidMount() {
+    this.setState({ activityIndicator: true })
+
+    return firebase.database().ref('users/' + this.props.user.uid).once('value', (snapshot) => {
+      
+      this.setState({ userInfo: snapshot.val() })
+      for ( a in this.state.userInfo.courses ){
+        for ( b in this.state.userInfo.courses[a]) {
+          for ( c in this.state.userInfo.courses[a][b]){
+            this.setState(prevState => ({
+              finishedCourses: [...prevState.finishedCourses, this.state.userInfo.courses[a][b][c]]
+            }) )
+            this.setState(prevState => ({
+              data: [...prevState.data, this.state.userInfo.courses[a][b][c]['grade']]
+            }) )
+            this.setState(prevState => ({
+              courses: [...prevState.courses, this.state.userInfo.courses[a][b][c]['name']]
+            }) )
+          }
+        }
+      }
+      this.setState({ activityIndicator: false})
+
   });
+  
   }
 
   renderRow(item, index) {
@@ -48,7 +70,7 @@ export default class MyProgressContent extends Component {
               <Text>{item.name}</Text>
             </View> 
             <View style={ styles.tableCenterRowView }> 
-              <Text>{item.date}</Text>
+              <Text>{item.status}</Text>
             </View>
             <View style={ styles.tableRightRowView }>
               <Text>{item.grade}</Text>
@@ -58,7 +80,6 @@ export default class MyProgressContent extends Component {
   }
     render() {
 
-      const data = [ 90,80,79,100]
       const axesSvg = { fontSize: 10, fill: 'grey' };
       const verticalContentInset = { top: 10, bottom: 10 }
       const xAxisHeight = 30
@@ -85,12 +106,17 @@ export default class MyProgressContent extends Component {
         </ImageBackground>
 
         <View style={ styles.mycareerBackground }>
+          {this.state.activityIndicator &&
+            <View style={styles.loading}>
+              <ActivityIndicator size='large' />
+            </View>
+          }
           <View style={{flexDirection: 'row', marginBottom: 30}}>
             <Image
                 style={ styles.avatarImage }
                 source={{ uri: 'https://via.placeholder.com/50x50?text=F' }}
               />
-            <Text style={ styles.nameText }>Franklin Stennett</Text>
+            <Text style={ styles.nameText }>{ this.state.userInfo.name }</Text>
           </View>
           <View style={ styles.separatorView }/>
           <View> 
@@ -98,7 +124,7 @@ export default class MyProgressContent extends Component {
             <View>
               <View style={{ height: 200, padding: 20, flexDirection: 'row' }}>
                   <YAxis
-                      data={data}
+                      data={this.state.data}
                       style={{ marginBottom: xAxisHeight }}
                       contentInset={verticalContentInset}
                       svg={axesSvg}
@@ -106,16 +132,16 @@ export default class MyProgressContent extends Component {
                   <View style={{ flex: 1, marginLeft: 10 }}>
                       <LineChart
                           style={{ flex: 1 }}
-                          data={data}
+                          data={this.state.data}
                           contentInset={verticalContentInset}
                           svg={{ stroke: 'rgb(134, 65, 244)' }}>
                           <Grid/>
                       </LineChart>
                       <XAxis
                           style={{ marginHorizontal: -10, height: xAxisHeight }}
-                          data={data}
-                          formatLabel={(value, index) => finishedCourses[index].name}
-                          contentInset={{ left: 10, right: 10 }}
+                          data={this.state.data}
+                          formatLabel={(value, index) => this.state.finishedCourses[index].name}
+                          contentInset={{ left: 25, right: 25 }}
                           svg={axesSvg}
                       />
                   </View>
@@ -132,7 +158,7 @@ export default class MyProgressContent extends Component {
               <View style={ styles.separatorView }/>
               <Text style={ styles.titleText }>Cursos Finalizados</Text>  
               <View style={{flex:1, margin: 20 }}>
-                <View style={ styles.tableMainView }>
+                {/*<View style={ styles.tableMainView }>
                   <View style={ styles.tableLeftRowView }>
                     <Text>Course</Text>
                   </View> 
@@ -142,9 +168,9 @@ export default class MyProgressContent extends Component {
                   <View style={ styles.tableRightRowView }>
                     <Text>Grade</Text>
                   </View> 
-                </View>
+      </View>*/}
                 {
-                    finishedCourses.map((item, index) => { 
+                    this.state.finishedCourses.map((item, index) => { 
                         return this.renderRow(item, index);
                     })
                 }
@@ -176,9 +202,6 @@ export default class MyProgressContent extends Component {
       flex: 1, 
       alignSelf: 'stretch', 
       flexDirection: 'row', 
-      borderTopWidth: 1, 
-      borderRightWidth: 1, 
-      borderLeftWidth: 1
     },
     tableLeftRowView: {
       flex: 1, 
@@ -240,6 +263,17 @@ export default class MyProgressContent extends Component {
       marginTop: 40, 
       marginBottom: 40, 
     },
+    loading: {
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      top: 0,
+      bottom: 0,
+      alignItems: 'center',
+      justifyContent: 'center',
+      opacity: 0.5,
+      backgroundColor: 'black'
+    }
 
   
   })
