@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, ScrollView, Text, ImageBackground, StyleSheet} from 'react-native';
 import { Icon, ListItem } from 'react-native-elements';
 
+import firebase from 'react-native-firebase';
 
 
 const list_courses = [
@@ -38,6 +39,42 @@ const list_courses = [
 
 
 export default class MyCoursesContent extends Component {
+
+  constructor() {
+    super();
+    this.state = {
+      courses: [],
+        data: [],
+        c: [],
+        finishedCourses: [],
+        activityIndicator: false
+    };
+  }
+
+  componentDidMount() {
+    return firebase.database().ref('users/' + this.props.user.uid + '/courses/2019/Q2').once('value', (snapshot) => {
+      
+      this.setState({ courses: snapshot.val() })
+      this.setState({ courses: Object.keys(this.state.courses) })
+      console.warn(this.state.courses)
+      /*for ( a in this.state.userInfo.courses ){
+        for ( b in this.state.userInfo.courses[a]) {
+          for ( c in this.state.userInfo.courses[a][b]){
+            this.setState(prevState => ({
+              finishedCourses: [...prevState.finishedCourses, this.state.userInfo.courses[a][b][c]]
+            }) )
+            this.setState(prevState => ({
+              data: [...prevState.data, this.state.userInfo.courses[a][b][c]['grade']]
+            }) )
+            this.setState(prevState => ({
+              courses: [...prevState.courses, this.state.userInfo.courses[a][b][c]['name']]
+            }) )
+          }
+        }
+      }*/
+  });
+  
+  }
     render() {
         return (
 <ScrollView
@@ -61,7 +98,7 @@ contentContainerStyle={{backgroundColor: 'white'}}>
   <View style={styles.separatorView}/>
   <View>
       {  
-      list_courses.map((l, i) => (
+      this.state.courses.map((l, i) => (
         <ListItem
           key={i}
           leftAvatar={{ source: { uri: l.avatar_url } }}

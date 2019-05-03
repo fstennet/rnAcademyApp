@@ -33,7 +33,8 @@ export default class MyCourses extends Component {
           return <Login />;
         }
         return (
-          <MyCoursesContent navigation={ this.props.navigation }/>
+          <MyCoursesContent navigation={ this.props.navigation }
+          user={ this.state.user }/>
         );
     }
   }
