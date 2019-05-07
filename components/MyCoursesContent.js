@@ -98,7 +98,7 @@ contentContainerStyle={{backgroundColor: 'white'}}>
   <View style={styles.separatorView}/>
   <View>
       {  
-      this.state.courses.map((l, i) => (
+      list_courses.map((l, i) => (
         <ListItem
           key={i}
           leftAvatar={{ source: { uri: l.avatar_url } }}

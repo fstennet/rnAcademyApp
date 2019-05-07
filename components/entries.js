@@ -18,25 +18,5 @@ export const ENTRIES1 = [
         title: 'Necesitamos tu feedback',
         subtitle: 'Para mejorar nuestra calidad de entrenamientos, llena la siguiente encuesta',
         illustration: 'https://i.imgur.com/KZsmUi2l.jpg'
-    },
-    {
-        title: 'Mujeres en Tecnologia',
-        subtitle: 'Conozca a las mujeres que sobresalen en la tecnologia. ANIMATE!',
-        illustration: 'https://i.imgur.com/2nCt3Sbl.jpg'
-    },
-    {
-        title: 'Nuestros aliados',
-        subtitle: 'Conozca nuestros aliados externos',
-        illustration: 'https://i.imgur.com/lceHsT6l.jpg'
-    },
-    {
-        title: 'Lo ultimo',
-        subtitle: 'Tech Academy ha certificado a 40 estudiantes este año',
-        illustration: 'https://i.imgur.com/lceHsT6l.jpg'
-    },
-    {
-        title: 'Nuestros logros',
-        subtitle: 'Lea los comentarios de nuestros empleados',
-        illustration: 'https://i.imgur.com/lceHsT6l.jpg'
     }
 ];

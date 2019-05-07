@@ -5,7 +5,6 @@ import { createBottomTabNavigator, createStackNavigator, createAppContainer } fr
 import Main from './components/Main'
 import MyCourses from './components/MyCourses'
 import MyProgress from './components/MyProgress'
-import Payments from './components/Payments'
 
 import WhatsNew from './components/CarouselCards/WhatsNew'
 import Groups from './components/CarouselCards/Groups'
@@ -104,15 +103,7 @@ const TabNavigator = createBottomTabNavigator({
       )
     } 
   }, 
-  Payments: {
-    screen: Payments,
-    navigationOptions: {
-      tabBarIcon: ({ tintColor }) => (
-        <Icon type='material-community' name='credit-card-settings' />
-      )
-    } 
-  }
-},{
+  },{
   navigationOptions:({ navigation }) => {
     const { routeName } = navigation.state.routes[navigation.state.index]
     return{

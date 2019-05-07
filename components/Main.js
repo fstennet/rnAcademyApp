@@ -6,8 +6,8 @@ import LinearGradient from 'react-native-linear-gradient';
 import SliderEntry from './SliderEntry';
 import styles, { colors } from './index.style';
 import { ENTRIES1 } from './entries';
-import {  ListItem  } from 'react-native-elements';
-import TouchableScale from 'react-native-touchable-scale'; // https://github.com/kohver/react-native-touchable-scale
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import * as Animatable from 'react-native-animatable';
 
 
 const SLIDER_1_FIRST_ITEM = 0;
@@ -134,23 +134,31 @@ get gradient () {
                     borderBottomWidth: 1,
                   }}
                 />
-                <ListItem
-                  Component={TouchableScale}
-                  friction={90} //
-                  tension={100} // These props are passed to the parent component (here TouchableScale)
-                  activeScale={0.95} //
-                  linearGradientProps={{
-                    colors: ['#FF9800', '#F44336'],
-                    start: {x: 1.0, y:0.0},
-                    end: {x: 0.2, y:0.0},
+        <View style={{flex: 1, flexDirection:'row'}}>
+        <View style={{ flex:1 , margin: 10 }}>
+        <Text style={{ 
+                color:'black',
+                fontSize: 20, 
+                fontWeight: 'bold' }}>Apertura de Cursos</Text>
+            <Text style={{ 
+                marginTop: 5,
+                marginBottom: 5,
+                color:'grey',
+                fontSize: 12 }}>Estos son los nuevos cursos para este periodo</Text> 
+        </View>
+        <View style={{ flex:1 , margin: 10 , alignItems:'flex-end', justifyContent: 'center'}}>
+        <Animatable.View animation='pulse' easing="ease-out" iterationCount="infinite">
+            <TouchableOpacity style={{  justifyContent: 'center', borderWidth: 1, borderRadius: 20, borderColor: 'black' }}>
+                <Text style={{ textAlign: 'center', paddingRight: 30, paddingLeft: 30, paddingTop: 10, paddingBottom:10}}>Ver</Text>
+            </TouchableOpacity>  
+        </Animatable.View>
+        </View> 
+            </View>
+                <View
+                  style={{
+                    borderBottomColor: '#959595',
+                    borderBottomWidth: 1,
                   }}
-                  ViewComponent={LinearGradient} // Only if no expo
-                  leftAvatar={{ rounded: true, source: { uri: 'https://via.placeholder.com/128' } }}
-                  title="Nuevos Cursos 2019"
-                  titleStyle={{ color: 'white', fontWeight: 'bold' }}
-                  chevronColor="white"
-                  chevron
-                  onPress={()=>this.props.navigation.navigate('WhatsNew')}
                 />
           </ScrollView>
         </SafeAreaView>
