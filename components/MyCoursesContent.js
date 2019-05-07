@@ -56,7 +56,7 @@ export default class MyCoursesContent extends Component {
       
       this.setState({ courses: snapshot.val() })
       this.setState({ courses: Object.keys(this.state.courses) })
-      console.warn(this.state.courses)
+      console.warn(typeof(this.state.courses), this.state.courses, typeof(this.state.data),)
       /*for ( a in this.state.userInfo.courses ){
         for ( b in this.state.userInfo.courses[a]) {
           for ( c in this.state.userInfo.courses[a][b]){
@@ -117,18 +117,18 @@ contentContainerStyle={{backgroundColor: 'white'}}>
 
 const styles = StyleSheet.create({
 separatorView: {
-margin: 40,
-borderBottomColor: 'grey',
-borderBottomWidth: 1
+  margin: 40,
+  borderBottomColor: 'grey',
+  borderBottomWidth: 1
 },
 textTitle: {
-color: 'white',
-fontWeight: 'bold',
-fontSize: 40 
+  color: 'white',
+  fontWeight: 'bold',
+  fontSize: 40 
 },
 textSubTitle:{
-color: 'white',
-fontSize: 20
+  color: 'white',
+  fontSize: 20
 }
 
 })
