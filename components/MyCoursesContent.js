@@ -5,6 +5,7 @@ import { Icon, ListItem } from 'react-native-elements';
 import firebase from 'react-native-firebase';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import * as Animatable from 'react-native-animatable';
+import LinearGradient from 'react-native-linear-gradient';
 
 
 export default class MyCoursesContent extends Component {
@@ -69,25 +70,24 @@ export default class MyCoursesContent extends Component {
 
    courseStatus(){
     if (this.state.todayCourseStatus == 'Class Today' ){
-    return (<View style={{ backgroundColor: 'blue' }}> 
-              <Text>{ this.state.todayCourseStatus }</Text>
-           </View>)
+    return (<View style={{ flex: 1, alignSelf:'flex-start', marginLeft:-10, marginTop: 2, marginBottom: 5, padding: 4, backgroundColor: '#38C91B', borderRadius: 5 }}>
+              <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 10 }}>{ this.state.todayCourseStatus }</Text>
+              </View>)
   } else if (this.state.todayCourseStatus == 'Starting Soon'){
-    return (<View style={{ backgroundColor: 'yellow' }}> 
-              <Text>{ this.state.todayCourseStatus }</Text>
-            </View> )       
+    return (
+              <Text style={{ color: 'yellow', fontWeight: 'bold', fontSize: 10 }}>{ this.state.todayCourseStatus }</Text>
+            )       
   } else if (this.state.todayCourseStatus == 'In Progress'){
-    return (<View style={{ backgroundColor: 'green' }}> 
-              <Text>{ this.state.todayCourseStatus }</Text>
-            </View>   )
+    return (
+              <Text style={{ color: 'green', fontWeight: 'bold', fontSize: 10 }}>{ this.state.todayCourseStatus }</Text>
+              )
   }
 }
     render() {
         return (
-<ScrollView
-contentContainerStyle={{backgroundColor: 'white'}}>
+<ScrollView style={{backgroundColor: 'white'}}>
   <ImageBackground 
-      source={{ uri: 'https://i.imgur.com/UPrs1EWl.jpg' }} 
+      source={ require('../assets/mycourses.jpg')} 
       style= {{ width: '100%', height: 280}}>
       <View style={{ flexDirection:'row' }}>
         <View style={{ alignItems: 'flex-start', margin: 10 }}>
@@ -102,13 +102,19 @@ contentContainerStyle={{backgroundColor: 'white'}}>
         </View>
       </View>              
   </ImageBackground>
+  <View style={{      marginTop: -60, marginRight: 20, marginLeft: 20, marginBottom: 20 }}>
+
   { this.state.todayCourseCardVisible &&
-    <View>
-    <Text style={ styles.titleText }>Today</Text>
-    <TouchableOpacity style={{ marginRight:50, marginLeft:50, justifyContent: 'center', borderWidth: 1, borderRadius: 10, borderColor: 'black' }}>
-            <View style={{ flexDirection: 'row', margin: 10}}>
-              <View style={{  flex: 1, alignItems: 'flex-start', margin: 5}}>
-              
+    <View style={{backgroundColor: 'rgb(245,245,245)', borderRadius: 3, borderWidth: 0.5, borderColor: 'rgba(186, 186, 186, 0.42)'}}>
+      {
+               this.courseStatus()
+             }
+    
+    {/*<Text style={ styles.titleText }>Today</Text>*/}
+    <TouchableOpacity style={{ marginRight:10, marginLeft:10, justifyContent: 'center', borderRadius: 10, marginBottom: 5 }}>
+            <View style={{ flexDirection: 'row', margin: 5}}>
+              <View style={{  flex: 1, alignItems: 'flex-start'}}>
+
                 <Text style={{ fontWeight: 'bold', fontSize: 13 }}>{ this.state.todayCourseInfo.name }</Text>
                 <View style={{ flex: 1, flexDirection: 'row'}}>
                 <Icon name='account-outline' 
@@ -126,17 +132,20 @@ contentContainerStyle={{backgroundColor: 'white'}}>
                 <Text style={{ fontSize: 10, marginTop:7  }}>{ this.state.todayCourseInfo.building }</Text>
                 </View>
               </View>
-              <View style={{  flex: 1, margin: 5, alignItems: 'flex-end'}}>
-             {
-               this.courseStatus()
-             }
-             <Animatable.View style={{ flex: 1, justifyContent:'center'}} animation='pulse' easing="ease-out" iterationCount="infinite">
-             <Icon
-                type='material-community'
-                name='qrcode-scan'
-                size={30}/>
-              </Animatable.View>
-      
+              <View style={{  borderRightColor: 'rgba(186, 186, 186, 0.42)', borderRightWidth: 1}}/>
+              <View style={{  flex: 1, alignItems: 'flex-end', borderWidth: 1,  alignContent: 'center', justifyContent: 'center'}}>
+                <View style={{flex:1,}}>
+                <Animatable.View style={{ flex: 1, justifyContent:'center'}} animation='pulse' easing="ease-out" iterationCount="infinite">
+                <LinearGradient style={{ borderRadius: 3, margin: 5 }} start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={['#4c669f', '#3b5998', '#192f6a']}>
+                <Icon
+                    type='material-community'
+                    name='qrcode-scan'
+                    size={40}
+                    color='white'
+                    containerStyle={{padding: 5, borderRadius: 3}}/>
+                    </LinearGradient>
+                  </Animatable.View>
+                  </View>
                 </View>
             </View>
 
@@ -156,7 +165,8 @@ contentContainerStyle={{backgroundColor: 'white'}}>
     </TouchableOpacity>
     </View>
   }
-  <View style={styles.separatorView}/>
+  </View>
+  {/*<View style={styles.separatorView}/>*/}
   <View>
   <Text style={ styles.titleText }>My Active Courses</Text>
       {  
@@ -197,8 +207,8 @@ titleText: {
   fontSize: 20, 
   textAlign: 'center', 
   fontWeight: 'bold', 
-  marginTop: 40, 
-  marginBottom: 40, 
+  marginTop: 10, 
+  marginBottom: 10, 
 },
 
 })

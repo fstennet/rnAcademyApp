@@ -41,7 +41,23 @@ export default class MyProgressContent extends Component {
 
     return firebase.database().ref('users/' + this.props.user.uid).once('value', (snapshot) => {
       
+
+      // TODO: add some logic to add past courses
       this.setState({ userInfo: snapshot.val() })
+      
+      this.setState({ finishedCourses:  Object.values(this.state.userInfo.courses)})
+      //console.warn(this.state.finishedCourses)
+
+      for (a in this.state.finishedCourses){
+        console.warn(this.state.finishedCourses[a].grade)
+        this.setState(prevState => ({
+          data: [...prevState.data, this.state.finishedCourses[a].grade]
+        }) )
+      }
+
+
+
+      /*this.setState({ userInfo: snapshot.val() })
       for ( a in this.state.userInfo.courses ){
         for ( b in this.state.userInfo.courses[a]) {
           for ( c in this.state.userInfo.courses[a][b]){
@@ -56,7 +72,7 @@ export default class MyProgressContent extends Component {
             }) )
           }
         }
-      }
+      }*/
       this.setState({ activityIndicator: false})
 
   });
