@@ -74,13 +74,17 @@ export default class MyCoursesContent extends Component {
               <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 10 }}>{ this.state.todayCourseStatus }</Text>
               </View>)
   } else if (this.state.todayCourseStatus == 'Starting Soon'){
-    return (
-              <Text style={{ color: 'yellow', fontWeight: 'bold', fontSize: 10 }}>{ this.state.todayCourseStatus }</Text>
-            )       
+    return (<View style={{ flex: 1, alignSelf:'flex-start', marginLeft:-10, marginTop: 2, marginBottom: 5, padding: 4, backgroundColor: 'red', borderRadius: 5 }}>
+              <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 10 }}>{ this.state.todayCourseStatus }</Text>
+              </View>)       
   } else if (this.state.todayCourseStatus == 'In Progress'){
-    return (
-              <Text style={{ color: 'green', fontWeight: 'bold', fontSize: 10 }}>{ this.state.todayCourseStatus }</Text>
-              )
+    return (<View style={{ flex: 1, alignSelf:'flex-start', marginLeft:-10, marginTop: 2, marginBottom: 5, padding: 4, backgroundColor: 'yellow', borderRadius: 5 }}>
+              <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 10 }}>{ this.state.todayCourseStatus }</Text>
+              </View>)
+  } else if (this.state.todayCourseStatus == 'Class Finished'){
+    return (<View style={{ flex: 1, alignSelf:'flex-start', marginLeft:-10, marginTop: 2, marginBottom: 5, padding: 4, backgroundColor: 'black', borderRadius: 5 }}>
+              <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 10 }}>{ this.state.todayCourseStatus }</Text>
+              </View>)
   }
 }
     render() {
@@ -102,10 +106,9 @@ export default class MyCoursesContent extends Component {
         </View>
       </View>              
   </ImageBackground>
-  <View style={{      marginTop: -60, marginRight: 20, marginLeft: 20, marginBottom: 20 }}>
-
+  <View style={{      marginTop: -50, marginRight: 20, marginLeft: 20, marginBottom: 30 }}>
   { this.state.todayCourseCardVisible &&
-    <View style={{backgroundColor: 'rgb(245,245,245)', borderRadius: 3, borderWidth: 0.5, borderColor: 'rgba(186, 186, 186, 0.42)'}}>
+    <View style={{backgroundColor: 'white', borderRadius: 3, borderWidth: 0.5, borderColor: 'rgba(186, 186, 186, 0.42)'}}>
       {
                this.courseStatus()
              }
@@ -133,7 +136,7 @@ export default class MyCoursesContent extends Component {
                 </View>
               </View>
               <View style={{  borderRightColor: 'rgba(186, 186, 186, 0.42)', borderRightWidth: 1}}/>
-              <View style={{  flex: 1, alignItems: 'flex-end', borderWidth: 1,  alignContent: 'center', justifyContent: 'center'}}>
+              <View style={{  flex: 1, alignItems: 'center'}}>
                 <View style={{flex:1,}}>
                 <Animatable.View style={{ flex: 1, justifyContent:'center'}} animation='pulse' easing="ease-out" iterationCount="infinite">
                 <LinearGradient style={{ borderRadius: 3, margin: 5 }} start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={['#4c669f', '#3b5998', '#192f6a']}>
@@ -154,8 +157,7 @@ export default class MyCoursesContent extends Component {
   }
     { !this.state.todayCourseCardVisible &&
     <View>
-    <Text style={ styles.titleText }>Today</Text>
-    <TouchableOpacity style={{ marginRight:40, marginLeft:40, justifyContent: 'center', borderWidth: 1, borderRadius: 10, borderColor: 'black' }}>
+    <TouchableOpacity style={{ backgroundColor: 'white', marginRight:40, marginLeft:40, justifyContent: 'center', borderWidth: 1, borderRadius: 10, borderColor: 'rgba(186, 186, 186, 0.42)' }}>
             <View style={{ flexDirection: 'row'}}>
               <View style={{  flex: 1, alignItems: 'center', margin: 20}}>
                 <Text style={{ }}>You have no classes today</Text>
