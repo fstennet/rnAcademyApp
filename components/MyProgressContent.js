@@ -7,7 +7,6 @@ import { Grid, LineChart, XAxis, YAxis } from 'react-native-svg-charts'
 import firebase from 'react-native-firebase';
 
 
-
 export default class MyProgressContent extends Component {
 
   constructor() {
@@ -44,16 +43,36 @@ export default class MyProgressContent extends Component {
 
       // TODO: add some logic to add past courses
       this.setState({ userInfo: snapshot.val() })
+      /*for (a in this.state.userInfo.courses){
+        if (this.state.userInfo.courses[a].status != 'active'){
+          this.setState(prevState => ({
+            finishedCourses: [...prevState.finishedCourses, this.state.userInfo.courses[a]]
+          }) )
+          console.warn(this.state.finishedCourses)
+          //this.setState(prevState => ({
+           // data: [...prevState.data, this.state.finishedCourses[a].grade]
+          //}) )    
+        }
+      }*/
       
       this.setState({ finishedCourses:  Object.values(this.state.userInfo.courses)})
       //console.warn(this.state.finishedCourses)
+      //console.warn(this.state.finishedCourses)
+      for (b in this.state.finishedCourses){
+        if (b > -1){
+          console.warn(b)
+          if (this.state.finishedCourses[b].status != 'active'){
+            console.warn(this.state.finishedCourses[b])
+            //this.state.finishedCourses.splice(b, 1)
+            /*this.setState(prevState => ({
+              data: [...prevState.data, this.state.finishedCourses[a].grade]
+            }) )*/
+          }
+        }
 
-      for (a in this.state.finishedCourses){
-        console.warn(this.state.finishedCourses[a].grade)
-        this.setState(prevState => ({
-          data: [...prevState.data, this.state.finishedCourses[a].grade]
-        }) )
       }
+      console.warn(this.getSnapshotBeforeUpdate.finishedCourses)
+
 
 
 
